@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard </title>
+
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/fontawesome-free/css/all.min.css")" />
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/dist/css/adminlte.min.css")">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/select2/css/select2.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css")">
+    <!-- Google Font: Source Sans Pro -->
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker.css")">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/plugins/datatables-responsive/css/responsive.bootstrap4.min.css")">
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/alert/css/sweetalert.css")">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+            background-color: #28a745 !important;
+        }
+    </style>
+    </head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-dark navbar-yellow">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="btn btn-danger" href="@Url.Action("Logout","Login")">
+                        Logout
+                        <i class="far fa-logout"></i>
+                    </a>
+
+                </li>
+            </ul>
+
+
+
+        </nav>
+        @Html.Partial("~/Views/MasterTemplate/_LeftMenu.cshtml")
+        <!-- =============================================== -->
+        <!-- Content Wrapper. Contains page content -->
+        @RenderBody()
+
+
+        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm text-center">
+                <div class="modal-content ">
+                    <img src="@Url.Content("~/Content/images/check.png")" alt="Myfood Logo" style="width:200px; margin-left: 50px; margin-top: 20px">
+                    Are you sure you want to leave ?
+                    <br><br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="@Url.Action("logout","Login")" class="btn btn-danger">Logout</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; @DateTime.Now.ToString("yyyy") <a href="#">Pembayaran Listrik</a>.</strong>
+
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="@Url.Content("~/Content/plugins/jquery/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables-responsive/js/dataTables.responsive.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables-buttons/js/dataTables.buttons.min.js")"></script>
+    <script src="@Url.Content("~/Content/plugins/datatables-buttons/js/buttons.bootstrap4.min.js")"></script>
+    <!-- bs-custom-file-input -->
+    <script src="@Url.Content("~/Content/plugins/bs-custom-file-input/bs-custom-file-input.min.js")"></script>
+
+    <!-- Bootstrap -->
+    <script src="@Url.Content("~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <!-- overlayScrollbars -->
+    <script src="@Url.Content("~/Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")"></script>
+    <!-- AdminLTE App -->
+    <script src="@Url.Content("~/Content/dist/js/adminlte.js")"></script>
+
+    <!-- Select2 -->
+    <script src="@Url.Content("~/Content/plugins/select2/js/select2.full.min.js")"></script>
+    <!-- PAGE PLUGINS -->
+    <!-- ChartJS -->
+    <script src="@Url.Content("~/Content/js/Chart.js")"></script>
+
+    <!-- InputMask -->
+    <script src="@Url.Content("~/Content/plugins/moment/moment.min.js")"></script>
+    <!-- PAGE SCRIPTS -->
+    <!-- <script src="@Url.Content("~/Content/dist/js/pages/dashboard2.js")"></script> -->
+    <script src="@Url.Content("~/Content/plugins/daterangepicker/daterangepicker.js")"></script>
+    <!-- AdminLTE App -->
+    <!-- page script -->
+    <script src="@Url.Content("~/Content/alert2/sweetalert2.all.min.js")"></script>
+
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            $('#reservation').daterangepicker({
+                locale: {
+                    format: 'YYYY/MM/DD'
+                }
+
+            })
+            if ('@ViewBag.rangeDate'== "")
+            {
+                $('#reservation').val("")
+                $('#reservation').attr('placeholder','Date Range')
+            }
+            else
+            {
+                $('#reservation').val("@ViewBag.rangeDate")
+        }
+            $('#reservation').on('cancel.daterangepicker', function (ev, picker) {
+            $('#reservation').val("")
+        })
+            $('input[name="tanggal"]').daterangepicker({
+            autoUpdateInput: false,
+                locale: {
+                cancelLabel: 'Clear'
+                }
+            });
+
+            $('input[name="tanggal"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+            });
+
+            $('input[name="tanggal"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+                $(".alert").hide(3000);
+
+
+            })
+        });
+    </script>
+    <script type="text/javascript" )">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
+    @if (!String.IsNullOrEmpty(ViewBag.delete))
+    {
+
+        <script>
+        Swal.fire(
+            'Deleted!',
+            '@ViewBag.',
+            'success'
+        )
+        </script>
+    }
+    @if (!String.IsNullOrEmpty(ViewBag.success))
+    {
+
+        <script>
+            Swal.fire(
+                'Success!',
+                '@ViewBag.success',
+                'success'
+            )
+        </script>
+    }
+    <script>
+
+        $(".btnhapus").on('click', function (e) {
+            e.preventDefault();
+            const href = $(this).attr('href');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+
+                    document.location.href = href;
+                }
+            })
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+        });
+    </script>
+
+</body>
+</html>

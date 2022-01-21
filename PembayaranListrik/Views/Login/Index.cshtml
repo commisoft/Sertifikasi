@@ -1,0 +1,65 @@
+﻿@model PembayaranListrik.Models.user
+@{
+    ViewBag.Title = "TOQRS";
+    Layout = "~/Views/MasterTemplate/_Login.cshtml";
+}
+<div class="login-box">
+    <div class="login-logo">
+     
+    </div>
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            <form action="@Url.Action("Loginsi","Login")" method="post">
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="User Name" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user-circle"></span>
+                         
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- <div class="input-group mb-3">
+    <div class="g-recaptcha" data-sitekey="6LcMbucUAAAAAFadrBbNN4roKB1nh8pjy78NF9ZE"></div>
+    </div> -->
+                <div class="row">
+                    <div class="col-8">
+
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <div class="col-12">
+
+                        @if (ViewBag.errorMessage != null)
+                        {
+                            <div class="alert alert-danger p-1" role="alert">
+                                <span class="field-validation-error">@ViewBag.errorMessage</span>
+                                <button class="close" type="button" data-dismiss="alert" aria-label="close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+
+        </div>
+        <!-- /.login-card-body -->
+    </div>
+</div>

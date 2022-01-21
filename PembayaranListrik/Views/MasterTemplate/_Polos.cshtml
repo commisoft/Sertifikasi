@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TO-QRS | Dashboard </title>
+
+
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/app.min.css")">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/bundles/select2/dist/css/select2.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/components.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/bundles/bootstrap-daterangepicker/daterangepicker.css")">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/css/custom.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/assets/bundles/izitoast/css/iziToast.min.css")">
+    <link rel='shortcut icon' type='image/x-icon' href='@Url.Content("~/Content/assets/img/favicon.ico")' />
+</head>
+<style>
+    .tengah{
+        position:absolute;
+        margin-left:auto;
+        margin-right:auto;
+        margin-top:auto;
+        margin-bottom:auto;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+</style>
+<body style="background:white">
+
+@RenderBody()
+
+<script>
+    window.setTimeout(function () {
+        location.replace("@Url.Action("Index","Login")");
+    }, 1500)
+</script>
+
+</body>
+</html>

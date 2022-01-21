@@ -1,0 +1,160 @@
+﻿@model IEnumerable<PembayaranListrik.ViewModels.vwTagihan>
+@using PembayaranListrik.Helper;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/MasterTemplate/_mainLayout.cshtml";
+    int no = 1;
+}
+
+<!-- /.navbar -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- LINE CHART -->
+                    <div class="card">
+                        <div class="card-header ">
+                            <button type="button" class="btn btn-success btn-sm rounded-pill" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-plus"></i> ADD Tagihan
+                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="modalbersama">
+
+                            <table id="example2" class="table table-bordered table-sm table-striped">
+                                <thead>
+                                    <tr class="bg-success">
+                                        <th>No</th>
+                                        <th>ID Tagihan</th>
+                                        <th>Nama tarif</th>
+                                        <th>Bulan</th>
+                                        <th>Tahun</th>
+                                        <th>Meter Awal</th>
+                                        <th>Meter Akhir</th>
+                                        <th>Jumlah Meter</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <th>@no</th>
+                                            <th>@item.id_tagihan</th>
+                                            <th>@item.nama_pelanggan </th>
+                                            <th>@item.bulan</th>
+                                            <th>@item.tahun</th>
+                                            <th>@item.meter_awal </th>
+                                            <th>@item.meter_ahir </th>
+                                            <th>@item.jumlah_meter </th>
+                                            <td>
+                                                <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"> <a href="@Url.Action("delete","tagihan", new { idd = item.id_tagihan })" class="btnhapus"><i class="text-white fas fa-trash"></i> </a></button>
+
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table><hr>
+
+
+                        </div>
+                        <!-- /.card-body -->
+                        <daiv class="card-footer row">
+
+                        </daiv>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+<<!-- edit -->
+<!-- /.content-wrapper -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tarif</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("create", "Tagihan", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="">Penggunaan</label>
+                        @Html.DropDownList("id_pengunaan", (SelectList)ViewBag.penggunaan, "Pilih Penggunaan", htmlAttributes: new { @class = "form-control form-control-sm select2", id = "id_penggunaan", style = "width: 100%;", title = "Tarif", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Bulan</label>
+                        <input type="hidden" name="id_pelanggan" placeholder="id_pelanggan" id="idpelanggan" class="form-control form-control-sm" required>
+                        <input type="text" name="bulan" placeholder="bulan" class="form-control form-control-sm" required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tahun</label>
+                        <input type="text" name="tahun" placeholder="tahun" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Jumlah Meter</label>
+                        <input type="text" name="jumlah_meter" placeholder="Jumlah Meter" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Status</label>
+                        <input type="text" name="status" placeholder="status" class="form-control form-control-sm" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submit" class="btn btn-success">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+<script src="@Url.Content("~/Content/plugins/jquery/jquery.min.js")"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_penggunaan').change(function () {
+
+            var idp = $("#id_penggunaan").val();
+        var pathUrl = '@Url.Action("GetPelanggan")';
+        $.ajax({
+            method: "GET",
+            url: pathUrl,
+            data: {
+                id_penggunaan: idp
+            },
+            success: function (data) {
+                $("#idpelanggan").val(data);
+            }
+        });
+
+        })
+    });
+</script>

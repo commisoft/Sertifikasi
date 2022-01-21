@@ -1,0 +1,162 @@
+﻿@model IEnumerable<PembayaranListrik.Models.joinpembayaran>
+@using PembayaranListrik.Helper;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/MasterTemplate/_mainLayout.cshtml";
+    int no = 1;
+}
+
+<!-- /.navbar -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- LINE CHART -->
+                    <div class="card">
+                        <div class="card-header ">
+                            <button type="button" class="btn btn-success btn-sm rounded-pill" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-plus"></i> ADD Pembayaran
+                            </button>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body" id="modalbersama">
+
+                            <table id="example2" class="table table-bordered table-sm table-striped">
+                                <thead>
+                                    <tr class="bg-success">
+                                        <th>No</th>
+                                        <th>Nama Pelanggan </th>
+                                        <th>Tanggal</th>
+                                        <th>Bulan Bayar</th>
+                                        <th>Biaya Admin</th>
+                                        <th>Total Bayar</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@no</td>
+                                            <td>@item.nama_pelanggan </td>
+                                            <td>@item.tanggal_pembayaran</td>
+                                            <td>@item.bulan_bayar </td>
+                                            <td>@item.biaya_admin </td>
+                                            <td>@item.total_bayar </td>
+                                            <td><button class="btn btn-sm btn-danger"> <i class="fas fa-trash-alt"></i> Delete</button></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table><hr>
+
+
+                        </div>
+                        <!-- /.card-body -->
+                        <daiv class="card-footer row">
+
+                        </daiv>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+<!-- edit -->
+<!-- /.content-wrapper -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pembayaran</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("create", "Pembayaran", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Tagihan Atas Nama</label>
+                        @Html.DropDownList("id_tagihan", (SelectList)ViewBag.tagihan, "Pilih Tagihan", htmlAttributes: new { @class = "form-control form-control-sm select2", id = "id_tagihan", style = "width: 100%;", title = "Tarif", required = "" })
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tanggal Bayar</label>
+                        <input type="hidden" name="id_pelanggan" id="id_pelanggan" value="" />
+                        <input type="hidden" name="id_user" id="id_user" value="@Session["UserID"]" />
+                        <input type="date" name="tanggal_pembayaran" class="form-control" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="">Bulan Bayar</label>
+                        <input type="number" name="bulan_bayar" class="form-control" min="1" max="10" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Biaya Admin</label>
+                        <input type="text" name="biaya_admin" class="form-control" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Total Bayar</label>
+                        <input type="text" name="total_bayar" class="form-control" value="" />
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submit" class="btn btn-success">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- editmodal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+
+</div>
+
+<div class="modal fade bs-example-modal-lg" id="ModalBersama" tabindex="-1" role="dialog" aria-hidden="true">
+</div>
+<script src="@Url.Content("~/Content/plugins/jquery/jquery.min.js")"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#id_tagihan').change(function () {
+
+            var idt = $("#id_tagihan").val();
+        var pathUrl = '@Url.Action("GetPelanggan")';
+        $.ajax({
+            method: "GET",
+            url: pathUrl,
+            data: {
+                idtagihan: idt
+            },
+            success: function (data) {
+                $("#id_pelanggan").val(data);
+            }
+        });
+
+        })
+    });
+</script>

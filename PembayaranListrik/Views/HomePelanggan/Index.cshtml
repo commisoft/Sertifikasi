@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PembayaranListrik.ViewModels.vwTagihan>
+@using PembayaranListrik.Helper;
+@{
+    string selected = "selected";
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/MasterTemplate/_mainlayout.cshtml";
+    int no = 1;
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <img src="@Url.Content("~/Content/images/lamp.png")" alt="Alternate Text" style="position: absolute; right: 15px; top: -10px; width: 5%;" />
+            <img src="@Url.Content("~/Content/images/lamp.png")" alt="Alternate Text" style="position: absolute; right: 35px; top: -10px; width: 8%;" />
+
+            <div class="row">
+                <h3 class="text-center " style="margin: auto; width: 50%;  padding: 10px;"><b>Aplikasi<br /> Pembayaran Listrik</b></h3>
+                <div class="col-md-12">
+                    <h4><b>Data Tagihan Anda</b></h4>
+                    <table id="example2" class="table table-bordered table-sm table-striped">
+                        <thead>
+                            <tr class="bg-success">
+                                <th>No</th>
+                                <th>ID Tagihan</th>
+                                <th>Nama tarif</th>
+                                <th>Bulan</th>
+                                <th>Tahun</th>
+                                <th>Meter Awal</th>
+                                <th>Meter Akhir</th>
+                                <th>Jumlah Meter</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <th>@no</th>
+                                    <th>@item.id_tagihan</th>
+                                    <th>@item.nama_pelanggan </th>
+                                    <th>@item.bulan</th>
+                                    <th>@item.tahun</th>
+                                    <th>@item.meter_awal </th>
+                                    <th>@item.meter_ahir </th>
+                                    <th>@item.jumlah_meter </th>
+                                    <td>
+                                        <button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Hapus"> <a href="@Url.Action("delete","tagihan", new { idd = item.id_tagihan })" class="btnhapus"><i class="text-white fas fa-trash"></i> </a></button>
+
+                                    </td>
+                                </tr>
+                                no++;
+                            }
+
+                        </tbody>
+                    </table><hr>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
